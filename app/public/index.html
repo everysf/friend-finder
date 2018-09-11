@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Friend Finder</title>
+    <script src="server.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1>Friend Finder</h1>
+    <h3><strong>Question 1</strong></h3>
+    <h4>You love making your friends laugh</h4>
+    <select class="chosen-select" id="q1">
+      <option value=""></option>
+      <option value="1">1 (Strongly Disagree)</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5 (Strongly Agree)</option>
+    </select>
+    <h3><strong>Question 2</strong></h3>
+    <h4>You are a city person at heart</h4>
+    <select class="chosen-select" id="q2">
+      <option value=""></option>
+      <option value="1">1 (Strongly Disagree)</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5 (Strongly Agree)</option>
+    </select>
+    <h3><strong>Question 3</strong></h3>
+    <h4>You would love to work in fashion one day</h4>
+    <select class="chosen-select" id="q3">
+      <option value=""></option>
+      <option value="1">1 (Strongly Disagree)</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5 (Strongly Agree)</option>
+    </select>
+    <h3><strong>Question 4</strong></h3>
+    <h4>You’ll do anything for a good bowl of soup</h4>
+    <select class="chosen-select" id="q4">
+      <option value=""></option>
+      <option value="1">1 (Strongly Disagree)</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5 (Strongly Agree)</option>
+    </select>
+    <h3><strong>Question 5</strong></h3>
+    <h4>You enjoy complaining about nothing</h4>
+    <select class="chosen-select" id="q5">
+      <option value=""></option>
+      <option value="1">1 (Strongly Disagree)</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5 (Strongly Agree)</option>
+    </select>
+    <h3><strong>Question 6</strong></h3>
+    <h4>You tell people you want to be an architect</h4>
+    <select class="chosen-select" id="q6">
+      <option value=""></option>
+      <option value="1">1 (Strongly Disagree)</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5 (Strongly Agree)</option>
+    </select>
+    <h3><strong>Question 7</strong></h3>
+    <h4>You have a favorite diner that you basically live in</h4>
+    <select class="chosen-select" id="q7">
+      <option value=""></option>
+      <option value="1">1 (Strongly Disagree)</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5 (Strongly Agree)</option>
+    </select>
+    <h3><strong>Question 8</strong></h3>
+    <h4>You like wearing poofy shirts</h4>
+    <select class="chosen-select" id="q8">
+      <option value=""></option>
+      <option value="1">1 (Strongly Disagree)</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5 (Strongly Agree)</option>
+    </select>
+    <h3><strong>Question 9</strong></h3>
+    <h4>Newman…</h4>
+    <select class="chosen-select" id="q9">
+      <option value=""></option>
+      <option value="1">1 (Strongly Like)</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5 (Strongly Dislike)</option>
+    </select>
+    <h3><strong>Question 10</strong></h3>
+    <h4>You stay up late watching episodes of Seinfeld</h4>
+    <select class="chosen-select" id="q10">
+      <option value=""></option>
+      <option value="1">1 (Strongly Disagree)</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5 (Strongly Agree)</option>
+    </select>
+    <button id="submit">Submit</button>
+
+    <script>
+    
+      $("#submit").on("click", function(){
+
+        $.post("/api/findfriend",
+        {
+          answers: [1,2,3,4]
+        },
+        function(response, status){
+          // this is where the result will be
+            alert("Data: " + response.message + "\nStatus: " + status);
+            alert(response.bestFriend.name + response.bestFriend.photo)
+        });
+
+      })
+
+
+
+    </script>
+
+</body>
+</html>
