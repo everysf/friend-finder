@@ -1,43 +1,43 @@
 var path = require("path")
 var friends = require("./../data/friends.js")
 
-console.log(friends)
+console.log("1" + friends)
 
 module.exports = function(app) {
 
     app.post("/api/findfriend", function(req, res){
 
-        console.log(req.body)
+        console.log("2" + req.body)
 
         var bestFriend;
 
-        var bestFriendScore = 1000;
+        var answerArr = []
 
-        // calculate best friend
+        for (var k = 1; k < 11; k++) {
 
-        // for loop through friends
-        for (var i = 0; i < friends.length; i++){
-
-            var bestFriendScore = 1000;
-            // for loop through scores
-            // find difference absolute value math.abs
-            // sum of absolute value
-
-            for (var j = 0; j< friends[i].scores.length; j++) {
-
-                bestFriendScore = bestFriendScore - Math.abs(scores[j])
-
-            }
-
-            friends[i]
+            var answer = $("#q1").val()
+            console.log(answer)
+            answerArr.push(answer)
 
         }
 
-        // if current abs < bestFriendScore
-            // bestFriend = friends[i]
+        console.log("3" + answerArr)
 
+        for (var i = 0; i < friends.length; i++) {
 
-        res.status(200).send({message: "Test", bestFriend: bestFriend})
+            var bestFriendScore = 1000;
+
+            for (var j = 0; j< friends[i].scores.length; j++) {
+
+                bestFriendScore = bestFriendScore - Math.abs(answerArr[i] - friends[i].scores[j])
+
+            }
+
+            friends[i] = {bestFriendScore: bestFriendScore}
+
+        }
+
+        res.status(200).send({message: "We found your best friend!", bestFriend: bestFriend})
 
     })
     

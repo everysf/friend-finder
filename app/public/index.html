@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Friend Finder</title>
-    <script src="server.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css">
     <link rel="stylesheet" href="style.css">
     <script
     src="https://code.jquery.com/jquery-3.3.1.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
+    <script src="server.js"></script>
+    
 </head>
 <body>
     <h1>Friend Finder</h1>
@@ -125,7 +127,7 @@
           answers: [1,2,3,4]
         },
         function(response, status){
-          // this is where the result will be
+
             alert("Data: " + response.message + "\nStatus: " + status);
             alert(response.bestFriend.name + response.bestFriend.photo)
         });
