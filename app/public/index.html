@@ -5,18 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Friend Finder</title>
+
+    <link rel="shortcut icon" href="img/friendfinder-02.png">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css">
-    <link rel="stylesheet" href="style.css">
+
+    <link href="style.css" rel="stylesheet" >
+
     <script
     src="https://code.jquery.com/jquery-3.3.1.min.js"
     integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
-    <script src="server.js"></script>
     
 </head>
 <body>
-    <h1>Friend Finder</h1>
-    <h3><strong>Question 1</strong></h3>
+
+    <div class="result">
+        <h1 class="bfname"></h1>
+        <img src="" alt="" class="bfpicture">
+      </div>
+
+    <div class="wrap">
+  <div class="content">
+    <div class="logo"><img src="img/Seinfeld_logo.png" alt="" id="logo">
+      <h1 class="head">Let's find you a friend!</h1></div>
+
+    <div class="section"><h3><strong>Question 1</strong></h3>
     <h4>You love making your friends laugh</h4>
     <select class="chosen-select" id="q1">
       <option value=""></option>
@@ -26,7 +40,8 @@
       <option value="4">4</option>
       <option value="5">5 (Strongly Agree)</option>
     </select>
-    <h3><strong>Question 2</strong></h3>
+    </div>
+    <div class="section"><h3><strong>Question 2</strong></h3>
     <h4>You are a city person at heart</h4>
     <select class="chosen-select" id="q2">
       <option value=""></option>
@@ -36,7 +51,8 @@
       <option value="4">4</option>
       <option value="5">5 (Strongly Agree)</option>
     </select>
-    <h3><strong>Question 3</strong></h3>
+    </div>
+    <div class="section"><h3><strong>Question 3</strong></h3>
     <h4>You would love to work in fashion one day</h4>
     <select class="chosen-select" id="q3">
       <option value=""></option>
@@ -46,7 +62,8 @@
       <option value="4">4</option>
       <option value="5">5 (Strongly Agree)</option>
     </select>
-    <h3><strong>Question 4</strong></h3>
+    </div>
+    <div class="section"><h3><strong>Question 4</strong></h3>
     <h4>You’ll do anything for a good bowl of soup</h4>
     <select class="chosen-select" id="q4">
       <option value=""></option>
@@ -56,7 +73,8 @@
       <option value="4">4</option>
       <option value="5">5 (Strongly Agree)</option>
     </select>
-    <h3><strong>Question 5</strong></h3>
+    </div>
+    <div class="section"><h3><strong>Question 5</strong></h3>
     <h4>You enjoy complaining about nothing</h4>
     <select class="chosen-select" id="q5">
       <option value=""></option>
@@ -65,8 +83,8 @@
       <option value="3">3</option>
       <option value="4">4</option>
       <option value="5">5 (Strongly Agree)</option>
-    </select>
-    <h3><strong>Question 6</strong></h3>
+    </select></div>
+    <div class="section"><h3><strong>Question 6</strong></h3>
     <h4>You tell people you want to be an architect</h4>
     <select class="chosen-select" id="q6">
       <option value=""></option>
@@ -76,7 +94,8 @@
       <option value="4">4</option>
       <option value="5">5 (Strongly Agree)</option>
     </select>
-    <h3><strong>Question 7</strong></h3>
+    </div>
+    <div class="section"><h3><strong>Question 7</strong></h3>
     <h4>You have a favorite diner that you basically live in</h4>
     <select class="chosen-select" id="q7">
       <option value=""></option>
@@ -86,7 +105,8 @@
       <option value="4">4</option>
       <option value="5">5 (Strongly Agree)</option>
     </select>
-    <h3><strong>Question 8</strong></h3>
+    </div>
+    <div class="section"><h3><strong>Question 8</strong></h3>
     <h4>You like wearing poofy shirts</h4>
     <select class="chosen-select" id="q8">
       <option value=""></option>
@@ -96,7 +116,8 @@
       <option value="4">4</option>
       <option value="5">5 (Strongly Agree)</option>
     </select>
-    <h3><strong>Question 9</strong></h3>
+    </div>
+    <div class="section"><h3><strong>Question 9</strong></h3>
     <h4>Newman…</h4>
     <select class="chosen-select" id="q9">
       <option value=""></option>
@@ -106,7 +127,8 @@
       <option value="4">4</option>
       <option value="5">5 (Strongly Dislike)</option>
     </select>
-    <h3><strong>Question 10</strong></h3>
+    </div>
+    <div class="section"><h3><strong>Question 10</strong></h3>
     <h4>You stay up late watching episodes of Seinfeld</h4>
     <select class="chosen-select" id="q10">
       <option value=""></option>
@@ -116,20 +138,51 @@
       <option value="4">4</option>
       <option value="5">5 (Strongly Agree)</option>
     </select>
-    <button id="submit">Submit</button>
+    </div>
+    <div class="section red">    <button id="submit">Submit</button></div>
+
+  </div>
+</div>
+  <div class="background"></div>
 
     <script>
     
       $("#submit").on("click", function(){
 
+        var answerArr = []
+
+        for (var i = 1; i < 11; i++) {
+
+          var answer = $("#q"+i).val()
+          answerArr.push(answer)
+
+        }
+
         $.post("/api/findfriend",
         {
-          answers: [1,2,3,4]
+          answers: answerArr
         },
         function(response, status){
 
-            alert("Data: " + response.message + "\nStatus: " + status);
-            alert(response.bestFriend.name + response.bestFriend.photo)
+            var modal = $("<div>")
+            var title = $("<h1>")
+            var picture = $("<img>")
+            title.addClass("bfname")
+            title.text("Our best match for you is: " + response.name)
+            picture.addClass("bfpicture")
+            picture.attr("src", response.picture)
+
+            modal.addClass("modal")
+            modal.append(picture)
+            modal.append(title)
+            
+            $(".result").css("display", "inline")
+            $(".result").css("background-color", "rgba(0,0,0,.4")
+            $(".result").css("height", "100vh")
+            $(".result").css("width", "100%")
+
+            $(".result").append(modal)
+
         });
 
       })

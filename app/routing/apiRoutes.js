@@ -1,44 +1,51 @@
 var path = require("path")
 var friends = require("./../data/friends.js")
 
-console.log("1" + friends)
+function evaluateFriend(data, callback) {
+
+
+    var friendsArr = []
+
+    for (var i = 0; i < friends.length; i++) {
+
+        var compatibilityScore = 100;
+
+        // Arr Loop
+        for (var j = 0; j < 10; j++) {
+            var difference = Math.abs(friends[i].scores[j] - data[j])
+            compatibilityScore = compatibilityScore - difference
+
+        }
+
+        friendsArr.push(compatibilityScore)
+
+    }
+
+    var bestFriendPosition = friendsArr.indexOf(Math.max(...friendsArr))
+    var bestFriendName = friends[bestFriendPosition].name;
+    var bestFriendPic = friends[bestFriendPosition].photo;
+
+    var bestFriend = {
+        name: bestFriendName,
+        picture: bestFriendPic
+    }
+
+    callback(bestFriend)
+
+}
 
 module.exports = function(app) {
 
     app.post("/api/findfriend", function(req, res){
 
-        console.log("2" + req.body)
+        console.log("searching")
 
-        var bestFriend;
+        var answersArr = req.body.answers
 
-        var answerArr = []
-
-        for (var k = 1; k < 11; k++) {
-
-            var answer = $("#q1").val()
-            console.log(answer)
-            answerArr.push(answer)
-
-        }
-
-        console.log("3" + answerArr)
-
-        for (var i = 0; i < friends.length; i++) {
-
-            var bestFriendScore = 1000;
-
-            for (var j = 0; j< friends[i].scores.length; j++) {
-
-                bestFriendScore = bestFriendScore - Math.abs(answerArr[i] - friends[i].scores[j])
-
-            }
-
-            friends[i] = {bestFriendScore: bestFriendScore}
-
-        }
-
-        res.status(200).send({message: "We found your best friend!", bestFriend: bestFriend})
-
+        evaluateFriend(answersArr, function(bestFriend){
+            res.status(200).send(bestFriend)
+        })
+    
     })
     
 }
